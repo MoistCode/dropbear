@@ -6,6 +6,10 @@ const {
   isQuote,
 } = require('./identify');
 
+const {
+  PARENTHESIS
+} = require('./constants');
+
 const tokenize = (input) => {
   const tokens = [];
   let cursor = 0;
@@ -15,7 +19,22 @@ const tokenize = (input) => {
   // }
 
   while (cursor < input.length) {
-    cursor ++;
+    const character = input[cursor];
+
+    if (isWhitespace(character)) {
+      cursor++;
+      continue;
+    }
+
+    if (isParenthesis(character)) {
+      tokens.push({
+        type: PARENTHESIS,
+        value: character,
+      });
+
+      cursor++;
+      continue;
+    }
   }
 
   return tokens;
