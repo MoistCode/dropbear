@@ -14,18 +14,18 @@ const {
 const parenthesize = tokens => {
   const token = pop(tokens);
 
-  if (isOpeningParenthesis(token)) {
+  if (isOpeningParenthesis(token.value)) {
     const expression = [];
 
-    while (!isClosingParenthesis(token.value)) {
-      expression.push(parenthesize(token));
+    while (!isClosingParenthesis(peek(tokens).value)) {
+      expression.push(parenthesize(tokens));
     }
-    
+
     pop(tokens);
     return expression;
   }
 
-  return tokens;
+  return token;
 };
 
 const parse = tokens => {
@@ -39,21 +39,21 @@ const parse = tokens => {
     };
   }
 
-  switch (token.type) {
+  switch (tokens.type) {
     case NUMBER:
       return {
         type: NUMBERIC_LITERAL,
-        value: token.value,
+        value: tokens.value,
       };
     case STRING:
       return {
         type: STRING_LITERAL,
-        value: token.value,
+        value: tokens.value,
       };
     case NAME:
       return {
         type: IDENTIFIER,
-        name: token.value,
+        name: tokens.value,
       };
   }
 };
