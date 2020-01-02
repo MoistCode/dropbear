@@ -6,6 +6,13 @@ const {
   isQuote,
 } = require('./identify');
 
-const tokenize = () => {};
+const tokenize = (input) => {
+  let cursor = 0;
+  const tokens = [];
+
+  while (cursor < input.length) {
+    
+  }
+};
 
 module.exports = { tokenize };
