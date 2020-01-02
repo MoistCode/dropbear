@@ -8,14 +8,36 @@ const {
   NUMBERIC_LITERAL,
   STRING_LITERAL,
   IDENTIFIER,
+  CALL_EXPRESSION,
 } = require('./constants');
 
 const parenthesize = tokens => {
+  const token = pop(tokens);
+
+  if (isOpeningParenthesis(token)) {
+    const expression = [];
+
+    while (!isClosingParenthesis(token.value)) {
+      expression.push(parenthesize(token));
+    }
+    
+    pop(tokens);
+    return expression;
+  }
+
   return tokens;
 };
 
 const parse = tokens => {
-  const token = pop(tokens);
+  if (Array.isArray(tokens)) {
+    const [first, ...rest] = tokens;
+
+    return {
+      type: CALL_EXPRESSION,
+      name: first.value,
+      arguments: rest.map(parse),
+    };
+  }
 
   switch (token.type) {
     case NUMBER:
