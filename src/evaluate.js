@@ -1,5 +1,5 @@
 const { environment } = require('./standard-library');
-const { CALL_EXPRESSION } = require('./constants');
+const { CALL_EXPRESSION, IDENTIFIER } = require('./constants');
 const last = collection => collection[collection.length - 1];
 
 const apply = node => {
@@ -12,10 +12,18 @@ const apply = node => {
   return fn(...args);
 }
 
+const getIdentifier = node => {
+  if (environment[node.name]) return environment[node.name];
+
+  throw new ReferenceError(`${node.name} is not an identifer`);
+}
+
 const evaluate = (node) => {
   switch (node.type) {
     case CALL_EXPRESSION:
       return apply(node);
+    case IDENTIFIER:
+      return getIdentifier(node);
   }
 
   if (node.value) return node.value;
