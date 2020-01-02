@@ -15,7 +15,7 @@ const apply = node => {
 const getIdentifier = node => {
   if (environment[node.name]) return environment[node.name];
 
-  throw new ReferenceError(`${node.name} is not an identifer`);
+  throw new ReferenceError(`${node.name} is not an ${IDENTIFIER}`);
 }
 
 const evaluate = (node) => {
