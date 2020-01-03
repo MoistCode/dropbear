@@ -1,8 +1,11 @@
-export const PARENTHESIS = "Parenthesis";
-export const NUMBER = "Number";
-export const NAME = "Name";
-export const STRING = "String";
-export const NUMBERIC_LITERAL = "NumericLiteral";
-export const CALL_EXPRESSION = "CallExpression";
-export const STRING_LITERAL = "StringLiteral";
-export const IDENTIFIER = "Identifier";
+module.exports = {
+  PARENTHESIS: "Parenthesis",
+  NUMBER: "Number",
+  NAME: "Name",
+  STRING: "String",
+  NUMBERIC_LITERAL: "NumericLiteral",
+  CALL_EXPRESSION: "CallExpression",
+  STRING_LITERAL: "StringLiteral",
+  IDENTIFIER: "Identifier",
+  COMMAND: "Command",
+};

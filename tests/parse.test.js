@@ -1,47 +1,48 @@
 import { parse } from '../src/parse';
+import { PARENTHESIS, NAME, NUMBER, STRING, NUMBERIC_LITERAL, CALL_EXPRESSION, STRING_LITERAL, IDENTIFIER } from '../src/constants';
 
 describe(parse, () => {
-  it.skip('should return a token with the type of NumericLiteral for number tokens', () => {
-    const tokens = [{ type: 'Number', value: 2 }];
+  it('should return a token with the type of NumericLiteral for number tokens', () => {
+    const tokens = [{ type: NUMBER, value: 2 }];
 
-    const ast = { type: 'NumericLiteral', value: 2 };
+    const ast = { type: NUMBERIC_LITERAL, value: 2 };
 
     expect(parse(tokens)).toEqual(ast);
   });
 
   // Exercise 3 Begin
-  it.skip('should return a token with the type of StringLiteral for string tokens', () => {
-    const tokens = [{ type: 'String', value: 'hello' }];
+  it('should return a token with the type of StringLiteral for string tokens', () => {
+    const tokens = [{ type: STRING, value: 'hello' }];
 
-    const ast = { type: 'StringLiteral', value: 'hello' };
+    const ast = { type: STRING_LITERAL, value: 'hello' };
 
     expect(parse(tokens)).toEqual(ast);
   });
 
-  it.skip('should return a token with the type of NumericLiteral for number tokens', () => {
-    const tokens = [{ type: 'Name', value: 'x' }];
+  it('should return a token with the type of NumericLiteral for number tokens', () => {
+    const tokens = [{ type: NAME, value: 'x' }];
 
-    const ast = { type: 'Identifier', name: 'x' };
+    const ast = { type: IDENTIFIER, name: 'x' };
 
     expect(parse(tokens)).toEqual(ast);
   });
   // Exercise 3 End
 
-  it.skip('should return an AST for a basic data structure', () => {
+  it('should return an AST for a basic data structure', () => {
     const tokens = [
-      { type: 'Parenthesis', value: '(' },
-      { type: 'Name', value: 'add' },
-      { type: 'Number', value: 2 },
-      { type: 'Number', value: 3 },
-      { type: 'Parenthesis', value: ')' },
+      { type: PARENTHESIS, value: '(' },
+      { type: NAME, value: 'add' },
+      { type: NUMBER, value: 2 },
+      { type: NUMBER, value: 3 },
+      { type: PARENTHESIS, value: ')' },
     ];
 
     const ast = {
-      type: 'CallExpression',
+      type: CALL_EXPRESSION,
       name: 'add',
       arguments: [
-        { type: 'NumericLiteral', value: 2 },
-        { type: 'NumericLiteral', value: 3 },
+        { type: NUMBERIC_LITERAL, value: 2 },
+        { type: NUMBERIC_LITERAL, value: 3 },
       ],
     };
 
@@ -50,32 +51,32 @@ describe(parse, () => {
     expect(result).toEqual(ast);
   });
 
-  it.skip('should return an AST for a nested data structure', () => {
+  it('should return an AST for a nested data structure', () => {
     const tokens = [
-      { type: 'Parenthesis', value: '(' },
-      { type: 'Name', value: 'add' },
-      { type: 'Number', value: 2 },
-      { type: 'Number', value: 3 },
-      { type: 'Parenthesis', value: '(' },
-      { type: 'Name', value: 'subtract' },
-      { type: 'Number', value: 4 },
-      { type: 'Number', value: 2 },
-      { type: 'Parenthesis', value: ')' },
-      { type: 'Parenthesis', value: ')' },
+      { type: PARENTHESIS, value: '(' },
+      { type: NAME, value: 'add' },
+      { type: NUMBER, value: 2 },
+      { type: NUMBER, value: 3 },
+      { type: PARENTHESIS, value: '(' },
+      { type: NAME, value: 'subtract' },
+      { type: NUMBER, value: 4 },
+      { type: NUMBER, value: 2 },
+      { type: PARENTHESIS, value: ')' },
+      { type: PARENTHESIS, value: ')' },
     ];
 
     const ast = {
-      type: 'CallExpression',
+      type: CALL_EXPRESSION,
       name: 'add',
       arguments: [
-        { type: 'NumericLiteral', value: 2 },
-        { type: 'NumericLiteral', value: 3 },
+        { type: NUMBERIC_LITERAL, value: 2 },
+        { type: NUMBERIC_LITERAL, value: 3 },
         {
-          type: 'CallExpression',
+          type: CALL_EXPRESSION,
           name: 'subtract',
           arguments: [
-            { type: 'NumericLiteral', value: 4 },
-            { type: 'NumericLiteral', value: 2 },
+            { type: NUMBERIC_LITERAL, value: 4 },
+            { type: NUMBERIC_LITERAL, value: 2 },
           ],
         },
       ],
